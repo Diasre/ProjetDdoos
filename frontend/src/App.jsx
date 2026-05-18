@@ -433,33 +433,35 @@ function App() {
               </p>
             </div>
             
-            <div className="flex flex-row items-center justify-center gap-6 pt-6">
-               <label 
-                 className="group relative cursor-pointer overflow-hidden bg-white/5 border border-white/10 text-slate-300 hover:text-white px-8 py-5 rounded-2xl font-black transition-all shadow-xl hover:-translate-y-1 active:scale-95 flex items-center gap-3 backdrop-blur-md"
-               >
-                  <Upload size={24} />
-                  <span className="uppercase text-sm tracking-widest hidden md:inline">Analyse Hors Ligne</span>
-                  <input type="file" className="hidden" accept=".csv" onChange={handleFileUpload} />
-               </label>
-               
-               <button 
-                 onClick={() => setIsLiveMode(!isLiveMode)}
-                 className={`group relative overflow-hidden px-8 py-5 md:px-12 rounded-3xl font-black transition-all hover:-translate-y-2 active:scale-95 text-lg md:text-xl flex items-center gap-4 border ${isLiveMode ? 'bg-rose-600/20 border-rose-500/50 text-rose-400 shadow-[0_20px_50px_rgba(244,63,94,0.3)] glow-border-danger' : 'bg-primary-600 border-transparent text-white shadow-[0_20px_50px_rgba(14,165,233,0.3)]'}`}
-               >
-                  {isLiveMode ? (
-                     <><span className="flex h-3 w-3 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span></span> DÉSACTIVER ÉCOUTE</>
-                  ) : (
-                     <><Globe size={28} className="animate-pulse text-primary-300" /> DÉPLOYER CAPTEUR LIVE</>
-                  )}
-               </button>
+            {activeTab === 'dashboard' && (
+              <div className="flex flex-row items-center justify-center gap-6 pt-6">
+                 <label 
+                   className="group relative cursor-pointer overflow-hidden bg-white/5 border border-white/10 text-slate-300 hover:text-white px-8 py-5 rounded-2xl font-black transition-all shadow-xl hover:-translate-y-1 active:scale-95 flex items-center gap-3 backdrop-blur-md"
+                 >
+                    <Upload size={24} />
+                    <span className="uppercase text-sm tracking-widest hidden md:inline">Analyse Hors Ligne</span>
+                    <input type="file" className="hidden" accept=".csv" onChange={handleFileUpload} />
+                 </label>
+                 
+                 <button 
+                   onClick={() => setIsLiveMode(!isLiveMode)}
+                   className={`group relative overflow-hidden px-8 py-5 md:px-12 rounded-3xl font-black transition-all hover:-translate-y-2 active:scale-95 text-lg md:text-xl flex items-center gap-4 border ${isLiveMode ? 'bg-rose-600/20 border-rose-500/50 text-rose-400 shadow-[0_20px_50px_rgba(244,63,94,0.3)] glow-border-danger' : 'bg-primary-600 border-transparent text-white shadow-[0_20px_50px_rgba(14,165,233,0.3)]'}`}
+                 >
+                    {isLiveMode ? (
+                       <><span className="flex h-3 w-3 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span></span> DÉSACTIVER ÉCOUTE</>
+                    ) : (
+                       <><Globe size={28} className="animate-pulse text-primary-300" /> DÉPLOYER CAPTEUR LIVE</>
+                    )}
+                 </button>
 
-               <button 
-                 onClick={() => setActiveTab('journal')}
-                 className="bg-white/5 hover:bg-white/10 text-slate-400 px-8 py-5 rounded-2xl font-black transition-all flex items-center gap-3 border border-white/10 text-sm backdrop-blur-xl group uppercase tracking-widest"
-               >
-                  <Calendar size={20} /> <span className="hidden md:inline">Journal BDD</span>
-               </button>
-            </div>
+                 <button 
+                   onClick={() => setActiveTab('journal')}
+                   className="bg-white/5 hover:bg-white/10 text-slate-400 px-8 py-5 rounded-2xl font-black transition-all flex items-center gap-3 border border-white/10 text-sm backdrop-blur-xl group uppercase tracking-widest"
+                 >
+                    <Calendar size={20} /> <span className="hidden md:inline">Journal BDD</span>
+                 </button>
+              </div>
+            )}
           </header>
 
           {/* Dashoard UI Section */}
