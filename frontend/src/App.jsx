@@ -897,19 +897,19 @@ function App() {
                    <h2 className="text-4xl font-black mb-8 text-white">LSTM Model Performance</h2>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                       <div className="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
-                         <div className="text-4xl font-black text-primary-400 mb-2">{(metrics?.accuracy < 1 ? metrics.accuracy * 100 : metrics.accuracy).toFixed(1)}%</div>
+                         <div className="text-4xl font-black text-primary-400 mb-2">{metrics?.accuracy ? (metrics.accuracy < 1 ? metrics.accuracy * 100 : metrics.accuracy).toFixed(1) : "0.0"}%</div>
                          <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Accuracy Score</div>
                       </div>
                       <div className="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
-                         <div className="text-4xl font-black text-emerald-400 mb-2">{(metrics?.precision < 1 ? metrics.precision * 100 : metrics.precision).toFixed(1)}%</div>
+                         <div className="text-4xl font-black text-emerald-400 mb-2">{metrics?.precision ? (metrics.precision < 1 ? metrics.precision * 100 : metrics.precision).toFixed(1) : "0.0"}%</div>
                          <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Precision</div>
                       </div>
                       <div className="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
-                         <div className="text-4xl font-black text-rose-400 mb-2">{(metrics?.recall < 1 ? metrics.recall * 100 : metrics.recall).toFixed(1)}%</div>
+                         <div className="text-4xl font-black text-rose-400 mb-2">{metrics?.recall ? (metrics.recall < 1 ? metrics.recall * 100 : metrics.recall).toFixed(1) : "0.0"}%</div>
                          <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Recall Rate</div>
                       </div>
                       <div className="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
-                         <div className="text-4xl font-black text-indigo-400 mb-2">{(metrics?.f1_score < 1 ? metrics.f1_score : metrics.f1_score / 100).toFixed(3)}</div>
+                         <div className="text-4xl font-black text-indigo-400 mb-2">{metrics?.f1_score ? (metrics.f1_score < 1 ? metrics.f1_score : metrics.f1_score / 100).toFixed(3) : "0.000"}</div>
                          <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">F1 Score</div>
                       </div>
                    </div>

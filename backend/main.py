@@ -19,6 +19,14 @@ except ImportError:
 
 app = FastAPI(title="DDoS Attack Detection API", version="1.0.0")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Allow all origins for the deployed frontend
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # --- LIVE BUFFER MODULE ---
 # Garde en mémoire les 50 dernières secondes/requêtes d'analyse
 live_alerts_buffer = []
