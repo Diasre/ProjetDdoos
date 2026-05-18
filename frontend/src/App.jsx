@@ -662,8 +662,6 @@ function App() {
                 {!analysisResults ? (
                   <div className="glass-panel p-24 rounded-[4rem] flex flex-col items-center justify-center border-dashed border-4 border-slate-800 hover:border-primary-500/50 transition-all group overflow-hidden relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <h2 className="text-4xl font-extrabold mb-4 text-white tracking-tighter">Injection de Dataset Reseaux</h2>
-                    
                     {uploadStatus === 'uploading' ? (
                       <div className="w-full max-w-md space-y-4 mb-12">
                         <div className="flex justify-between text-sm font-black uppercase tracking-widest text-primary-400">
@@ -683,9 +681,9 @@ function App() {
                     ) : (
                       <>
                         {chatMessages.length === 0 ? (
-                          <p className="text-slate-400 text-center max-w-xl mb-12 text-lg font-medium leading-relaxed">
-                            Transférez vos captures (CIC-DDoS2019) ou décrivez votre analyse.
-                          </p>
+                          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter text-center mb-12 max-w-2xl leading-tight">
+                            Sur quelle sécurité voulez-vous travailler ?
+                          </h2>
                         ) : (
                           <div className="w-full max-w-3xl mb-8 space-y-6 h-[400px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
                             {chatMessages.map((msg, i) => (
