@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+tensorflow
+pandas
+numpy
+scikit-learn
+pydantic
+python-multipart
+sqlalchemy
+psycopg2-binary
+python-dotenv
+netmiko
+scapy
+requests
