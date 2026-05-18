@@ -183,6 +183,7 @@ function App() {
   
   const [strictMode, setStrictMode] = useState(true)
   const [soundAlerts, setSoundAlerts] = useState(false)
+  const [activeSettingsTab, setActiveSettingsTab] = useState('general')
   
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('ddos_reports') || '[]')
@@ -1157,65 +1158,72 @@ function App() {
            )}
 
           {activeTab === 'settings' && (
-            <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000 max-w-4xl mx-auto w-full space-y-10">
-              <div className="glass-panel p-10 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden">
-                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+            <div className="animate-in fade-in slide-in-from-bottom-10 duration-700 max-w-5xl mx-auto w-full bg-[#1e1e1e] rounded-2xl overflow-hidden border border-white/5 flex min-h-[600px] shadow-2xl relative z-20">
+              {/* Left Sidebar for Settings */}
+              <div className="w-64 bg-[#1a1a1a] p-6 border-r border-white/5 flex flex-col gap-1">
+                 <h2 className="text-2xl font-serif text-white mb-8 px-2">Paramètres</h2>
                  
-                 <div className="flex items-center gap-4 mb-10">
-                    <div className="bg-gradient-to-br from-slate-700 to-slate-900 p-3 rounded-2xl shadow-inner border border-white/5">
-                       <Settings size={28} className="text-primary-400" />
-                    </div>
-                    <div>
-                       <h2 className="text-3xl font-black text-white tracking-tight">Configuration Système</h2>
-                       <p className="text-slate-400 font-medium tracking-wide mt-1">Gérez vos préférences et la sécurité de votre compte</p>
-                    </div>
-                 </div>
+                 <button onClick={() => setActiveSettingsTab('general')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'general' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Général</button>
+                 <button onClick={() => setActiveSettingsTab('compte')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'compte' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Compte</button>
+                 <button onClick={() => setActiveSettingsTab('confidentialite')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'confidentialite' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Confidentialité</button>
+                 <button onClick={() => setActiveSettingsTab('facturation')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'facturation' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Facturation</button>
+                 <button onClick={() => setActiveSettingsTab('capacites')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'capacites' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Capacités</button>
+                 <button onClick={() => setActiveSettingsTab('connecteurs')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'connecteurs' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Connecteurs</button>
+                 <button onClick={() => setActiveSettingsTab('code')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'code' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Flux-Secure Code</button>
+              </div>
 
-                 <div className="space-y-8 relative z-10">
-                    <div className="bg-black/40 border border-white/5 p-8 rounded-3xl space-y-6">
-                       <h3 className="text-lg font-bold text-white flex items-center gap-2"><ShieldCheck size={20} className="text-emerald-400" /> Sécurité du Compte</h3>
-                       
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="space-y-2">
-                             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Email du compte</label>
-                             <input type="text" disabled value={currentUser?.email || ''} className="w-full bg-white/5 border border-white/10 text-slate-300 rounded-xl px-4 py-3 cursor-not-allowed opacity-70" />
-                          </div>
-                          <div className="space-y-2">
-                             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Nouveau mot de passe</label>
-                             <input type="password" placeholder="••••••••" className="w-full bg-white/5 border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500/50" />
-                          </div>
-                       </div>
-                       <button className="bg-primary-600 hover:bg-primary-500 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg mt-2">
-                          Mettre à jour le mot de passe
-                       </button>
-                    </div>
+              {/* Right Content */}
+              <div className="flex-1 p-10 bg-[#1e1e1e]">
+                 {activeSettingsTab === 'general' && (
+                   <div className="space-y-8 max-w-2xl animate-in fade-in">
+                      <h3 className="text-lg font-bold text-white mb-6">Profil</h3>
+                      
+                      <div className="space-y-6">
+                        {/* Avatar */}
+                        <div className="flex items-center justify-between py-4 border-b border-white/5">
+                           <span className="text-sm font-medium text-slate-200">Avatar</span>
+                           <div className="w-10 h-10 rounded-full bg-[#3f3f46] flex items-center justify-center text-white font-bold text-sm">
+                              {currentUser?.email ? currentUser.email.substring(0, 1).toUpperCase() : 'B'}
+                           </div>
+                        </div>
 
-                    <div className="bg-black/40 border border-white/5 p-8 rounded-3xl space-y-6">
-                       <h3 className="text-lg font-bold text-white flex items-center gap-2"><Globe size={20} className="text-indigo-400" /> Préférences de l'Application</h3>
-                       
-                       <div className="space-y-4">
-                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 transition-colors hover:bg-white/10 cursor-pointer" onClick={() => setStrictMode(!strictMode)}>
-                             <div>
-                                <h4 className="font-bold text-slate-200">Mode Strict (Cisco IPS)</h4>
-                                <p className="text-xs text-slate-400 mt-1">Bloque automatiquement les adresses IP suspectes sans confirmation manuelle.</p>
-                             </div>
-                             <div className={`w-12 h-6 rounded-full relative cursor-pointer transition-colors duration-300 ${strictMode ? 'bg-rose-500 shadow-[0_0_10px_#f43f5e]' : 'bg-slate-700'}`}>
-                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${strictMode ? 'right-1' : 'left-1'}`}></div>
-                             </div>
-                          </div>
+                        {/* Nom complet */}
+                        <div className="flex items-center justify-between py-4 border-b border-white/5">
+                           <span className="text-sm font-medium text-slate-200 w-1/2">Nom complet</span>
+                           <input type="text" className="bg-[#2a2a2a] border border-white/5 text-white rounded-lg px-3 py-2 w-1/2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-500" defaultValue={currentUser?.email ? currentUser.email.split('@')[0] : 'Babel'} />
+                        </div>
 
-                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 transition-colors hover:bg-white/10 cursor-pointer" onClick={() => setSoundAlerts(!soundAlerts)}>
-                             <div>
-                                <h4 className="font-bold text-slate-200">Alertes Sonores</h4>
-                                <p className="text-xs text-slate-400 mt-1">Émettre un signal sonore lorsqu'une attaque critique est identifiée.</p>
-                             </div>
-                             <div className={`w-12 h-6 rounded-full relative cursor-pointer transition-colors duration-300 ${soundAlerts ? 'bg-emerald-500 shadow-[0_0_10px_#10b981]' : 'bg-slate-700'}`}>
-                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${soundAlerts ? 'right-1' : 'left-1'}`}></div>
-                             </div>
-                          </div>
-                       </div>
+                        {/* Comment souhaitez-vous... */}
+                        <div className="flex items-center justify-between py-4 border-b border-white/5">
+                           <span className="text-sm font-medium text-slate-200 w-1/2">Comment souhaitez-vous que Flux-Secure vous appelle ?</span>
+                           <input type="text" className="bg-[#2a2a2a] border border-white/5 text-white rounded-lg px-3 py-2 w-1/2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-500" defaultValue={currentUser?.email ? currentUser.email.split('@')[0] : 'Babel'} />
+                        </div>
+
+                        {/* Description du travail */}
+                        <div className="flex items-center justify-between py-4 border-b border-white/5">
+                           <span className="text-sm font-medium text-slate-200">Quelle est la meilleure description de votre travail ?</span>
+                           <button className="flex items-center gap-2 text-slate-400 text-sm hover:text-white transition-colors">
+                              Sélectionner <ChevronDown size={16} />
+                           </button>
+                        </div>
+
+                        {/* Instructions */}
+                        <div className="pt-4">
+                           <span className="text-sm font-medium text-slate-200 block mb-2">Instructions pour Flux-Secure</span>
+                           <p className="text-xs text-slate-500 leading-relaxed">
+                              Le modèle gardera ces éléments à l'esprit lors des analyses, conformément aux <a href="#" className="underline hover:text-slate-300">directives de sécurité</a>.<br/>
+                              <a href="#" className="underline hover:text-slate-300">En savoir plus</a>
+                           </p>
+                        </div>
+                      </div>
+                   </div>
+                 )}
+
+                 {activeSettingsTab !== 'general' && (
+                    <div className="flex items-center justify-center h-full animate-in fade-in">
+                       <p className="text-slate-500">Section en cours de construction.</p>
                     </div>
-                 </div>
+                 )}
               </div>
             </div>
           )}
