@@ -423,7 +423,7 @@ function App() {
                 {activeTab === 'dashboard' ? (
                   <>Real-Time <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary-400 to-indigo-500">Defense</span></>
                 ) : (
-                  <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 to-rose-400">Deep Engine</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 to-rose-400">Flux-Secure</span>
                 )}
               </h1>
               <p className="text-slate-400 text-2xl max-w-3xl mx-auto leading-relaxed font-light opacity-80 backdrop-blur-sm">
