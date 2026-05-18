@@ -677,7 +677,7 @@ function App() {
                       <>
                         {chatMessages.length === 0 ? (
                           <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter text-center mb-12 max-w-2xl leading-tight">
-                            Sur quelle sécurité voulez-vous travailler ?
+                            Sur quel type de sécurité voulez-vous travailler ?
                           </h2>
                         ) : (
                           <div className="w-full max-w-3xl mb-8 space-y-6 h-[400px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
