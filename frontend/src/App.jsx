@@ -179,10 +179,6 @@ function App() {
   const [isTyping, setIsTyping] = useState(false)
   const [journalData, setJournalData] = useState({ daily: [], monthly: [], yearly: [] })
   
-  if (!isAuthenticated) {
-    return <AuthScreen onLogin={() => setIsAuthenticated(true)} />
-  }
-
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('ddos_reports') || '[]')
     setSavedReports(saved)
@@ -497,6 +493,10 @@ function App() {
       ]
 
   const totalValue = dataPie.reduce((acc, curr) => acc + curr.value, 0)
+
+  if (!isAuthenticated) {
+    return <AuthScreen onLogin={(user) => setIsAuthenticated(true)} />
+  }
 
   return (
     <div className="relative min-h-screen w-full bg-[#020617] text-slate-100 font-['Outfit'] overflow-x-hidden selection:bg-primary-500/30">
