@@ -51,7 +51,7 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:9000'
 function App() {
   const reportRef = useRef(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
-  const [activeTab, setActiveTab] = useState('dashboard')
+  const [activeTab, setActiveTab] = useState('analysis')
   const [savedReports, setSavedReports] = useState([])
   
   // Nouveaux états pour le Chat IA
@@ -382,28 +382,34 @@ function App() {
       <div className="bg-blur-blob blob-2" style={{ bottom: '-10%', right: '-10%', transform: 'scale(1.5)' }}></div>
       <div className="bg-blur-blob" style={{ top: '30%', left: '40%', opacity: 0.05, background: 'radial-gradient(circle, #f43f5e 0%, transparent 70%)' }}></div>
 
-      {/* Futuristic Nav Menu */}
-      <div className="fixed top-10 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav className="glass-nav px-3 py-1.5 flex flex-row items-center gap-1 shadow-[0_0_50px_rgba(0,0,0,0.5)] pointer-events-auto">
-          <div className="flex items-center gap-3 px-5 py-1 mr-2 group cursor-pointer border-r border-slate-700/30">
-            <div className="bg-gradient-to-br from-primary-400 to-indigo-600 p-1.5 rounded-lg shadow-lg rotate-3 group-hover:rotate-12 transition-transform duration-500">
-              <ShieldCheck size={22} className="text-white" />
+      {/* Futuristic Vertical Sidebar */}
+      <div className="fixed top-0 left-0 bottom-0 z-50 w-20 bg-[#1e1e1e] border-r border-white/5 flex flex-col items-center py-8 shadow-2xl">
+          <div className="mb-12 group cursor-pointer" title="DDoS GUARD">
+            <div className="bg-gradient-to-br from-primary-400 to-indigo-600 p-2.5 rounded-xl shadow-[0_0_15px_rgba(56,189,248,0.5)] rotate-3 group-hover:rotate-12 transition-transform duration-500">
+              <ShieldCheck size={28} className="text-white" />
             </div>
-            <span className="font-extrabold text-xl tracking-tighter uppercase italic text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">DDoS GUARD</span>
           </div>
           
-          <div className="flex flex-row items-center gap-1">
-            <NavItem active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} icon={<BarChart3 size={18} />} label="Dashboard" />
-            <NavItem active={activeTab === 'analysis'} onClick={() => setActiveTab('analysis')} icon={<Upload size={18} />} label="Analyse IA" />
-            <NavItem active={activeTab === 'metrics'} onClick={() => setActiveTab('metrics')} icon={<Activity size={18} />} label="LSTM Stats" />
-            <NavItem active={activeTab === 'journal'} onClick={() => setActiveTab('journal')} icon={<Calendar size={18} />} label="Journal" />
-            <NavItem active={activeTab === 'history'} onClick={() => setActiveTab('history')} icon={<History size={18} />} label="Intelligence" />
+          <nav className="flex flex-col gap-6 flex-1 w-full px-3">
+            <NavItem active={activeTab === 'analysis'} onClick={() => setActiveTab('analysis')} icon={<Plus size={24} />} label="Analyse IA" />
+            <NavItem active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} icon={<BarChart3 size={24} />} label="Dashboard" />
+            <NavItem active={activeTab === 'metrics'} onClick={() => setActiveTab('metrics')} icon={<Activity size={24} />} label="LSTM Stats" />
+            <NavItem active={activeTab === 'journal'} onClick={() => setActiveTab('journal')} icon={<Calendar size={24} />} label="Journal" />
+            <NavItem active={activeTab === 'history'} onClick={() => setActiveTab('history')} icon={<History size={24} />} label="Intelligence" />
+          </nav>
+          
+          <div className="mt-auto flex flex-col gap-6 items-center">
+            <button className="text-slate-500 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-2xl" title="Paramètres">
+              <Settings size={24} />
+            </button>
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-500 shadow-lg flex items-center justify-center font-bold text-white uppercase tracking-widest cursor-pointer hover:scale-105 transition-transform">
+              AD
+            </div>
           </div>
-        </nav>
       </div>
 
       {/* Main Content Area */}
-      <main className="pt-48 pb-20 px-8 relative z-10">
+      <main className="ml-20 pt-16 pb-20 px-8 md:px-16 relative z-10 min-h-screen overflow-x-hidden">
         <div className="max-w-7xl mx-auto w-full flex flex-col space-y-16">
           
           {/* Elite Centered Header */}
@@ -1002,15 +1008,15 @@ function NavItem({ active, onClick, icon, label }) {
   return (
     <button 
       onClick={onClick}
-      className={`group relative flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-500 font-extrabold text-sm tracking-tighter ${
+      title={label}
+      className={`group relative flex items-center justify-center p-3 w-full rounded-2xl transition-all duration-300 ${
         active 
           ? 'bg-white/10 text-white shadow-xl ring-1 ring-white/20' 
           : 'text-slate-400 hover:text-white hover:bg-white/5'
       }`}
     >
-      <div className={`transition-transform duration-500 ${active ? 'scale-110' : 'group-hover:rotate-12'}`}>{icon}</div>
-      <span className="uppercase">{label}</span>
-      {active && <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary-400 shadow-[0_0_10px_#0ea5e9]"></div>}
+      <div className={`transition-transform duration-500 ${active ? 'scale-110' : 'group-hover:scale-110'}`}>{icon}</div>
+      {active && <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-6 rounded-r-full bg-primary-400 shadow-[0_0_10px_#0ea5e9]"></div>}
     </button>
   )
 }
