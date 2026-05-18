@@ -469,7 +469,7 @@ function App() {
           {/* Dashoard UI Section */}
           {activeTab === 'dashboard' && (
             <div className="space-y-16 animate-in fade-in duration-1000">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-6">
                 <KPICard 
                   title="Global Network Load" 
                   value={predictionStats ? `${Object.values(predictionStats).reduce((a, b) => a + b, 0).toLocaleString()} Packets` : "Attente..."} 
@@ -1021,8 +1021,8 @@ function NavItem({ active, onClick, icon, label }) {
 
 function KPICard({ title, value, icon, subtext, alert }) {
   return (
-    <div className={`glass-panel p-8 flex flex-row items-center gap-8 rounded-[2.5rem] border border-white/5 hover:border-white/20 transition-all hover:-translate-y-2 group cursor-default ${alert ? 'glow-border-danger bg-rose-500/5' : 'hover:glow-border-primary'}`}>
-      <div className={`p-5 rounded-3xl transition-all duration-500 group-hover:scale-110 ${alert ? 'bg-rose-500/20 text-rose-500' : 'bg-white/5 text-primary-400 shadow-inner ring-1 ring-white/10'}`}>
+    <div className={`glass-panel p-6 flex flex-row items-center gap-5 rounded-[2.5rem] border border-white/5 hover:border-white/20 transition-all hover:-translate-y-2 group cursor-default ${alert ? 'glow-border-danger bg-rose-500/5' : 'hover:glow-border-primary'}`}>
+      <div className={`p-4 rounded-3xl flex-shrink-0 transition-all duration-500 group-hover:scale-110 ${alert ? 'bg-rose-500/20 text-rose-500' : 'bg-white/5 text-primary-400 shadow-inner ring-1 ring-white/10'}`}>
         {icon}
       </div>
       <div className="flex flex-col min-w-0">
