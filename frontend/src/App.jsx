@@ -168,6 +168,7 @@ function AuthScreen({ onLogin }) {
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [currentUser, setCurrentUser] = useState(null)
   const reportRef = useRef(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [activeTab, setActiveTab] = useState('analysis')
@@ -495,7 +496,10 @@ function App() {
   const totalValue = dataPie.reduce((acc, curr) => acc + curr.value, 0)
 
   if (!isAuthenticated) {
-    return <AuthScreen onLogin={(user) => setIsAuthenticated(true)} />
+    return <AuthScreen onLogin={(user) => {
+      setCurrentUser(user);
+      setIsAuthenticated(true);
+    }} />
   }
 
   return (
@@ -533,10 +537,10 @@ function App() {
             </button>
             <div className="flex items-center gap-3 p-2 hover:bg-white/5 rounded-xl cursor-pointer transition-colors mt-2 group">
                <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-500 shadow-lg flex items-center justify-center font-bold text-white text-xs uppercase tracking-widest flex-shrink-0 group-hover:scale-105 transition-transform">
-                 AD
+                 {currentUser?.email ? currentUser.email.substring(0, 2) : 'AD'}
                </div>
                <div className="flex flex-col overflow-hidden">
-                 <span className="text-sm font-bold text-slate-200 truncate">Admin User</span>
+                 <span className="text-sm font-bold text-slate-200 truncate">{currentUser?.email ? currentUser.email.split('@')[0] : 'Admin User'}</span>
                  <span className="text-[10px] text-slate-500 truncate">Forfait Pro</span>
                </div>
             </div>
