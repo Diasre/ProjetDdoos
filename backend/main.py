@@ -497,6 +497,39 @@ async def get_journal_stats():
         }
     except Exception as e:
         return {"error": str(e), "daily": [], "monthly": [], "yearly": []}
+from pydantic import BaseModel
+from groq import Groq
+
+class ChatRequest(BaseModel):
+    message: str
+
+@app.post("/api/chat")
+async def chat_with_llama(req: ChatRequest):
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    if not groq_api_key:
+        return {"response": "⚠️ La clé API Groq n'est pas encore configurée. Ajoutez GROQ_API_KEY dans les variables d'environnement de Render."}
+    
+    try:
+        client = Groq(api_key=groq_api_key)
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Tu es l'assistant IA 'LSTM 4.0' intégré au projet Ddoos (détection DDoS). Tu es un expert en cybersécurité, réseaux, et analyse de paquets (CIC-DDoS2019). Réponds en français de manière concise, très technique mais accessible, et professionnelle. Formate tes réponses en Markdown."
+                },
+                {
+                    "role": "user",
+                    "content": req.message
+                }
+            ],
+            model="llama3-8b-8192",
+            temperature=0.7,
+            max_tokens=1024,
+        )
+        return {"response": chat_completion.choices[0].message.content}
+    except Exception as e:
+        return {"response": f"❌ Erreur de connexion à l'IA: {str(e)}"}
+
 
 if __name__ == "__main__":
     import uvicorn

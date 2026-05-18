@@ -53,6 +53,11 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [activeTab, setActiveTab] = useState('dashboard')
   const [savedReports, setSavedReports] = useState([])
+  
+  // Nouveaux états pour le Chat IA
+  const [chatMessages, setChatMessages] = useState([])
+  const [chatInput, setChatInput] = useState("")
+  const [isTyping, setIsTyping] = useState(false)
   const [journalData, setJournalData] = useState({ daily: [], monthly: [], yearly: [] })
   
   useEffect(() => {
@@ -287,6 +292,25 @@ function App() {
       alert("❌ Erreur de connexion au serveur ! Vérifiez que le backend tourne bien sur le port 9000.")
     }
 }
+
+  const handleSendChat = async () => {
+    if (!chatInput.trim()) return
+    
+    const userMsg = { role: 'user', content: chatInput }
+    setChatMessages(prev => [...prev, userMsg])
+    const currentInput = chatInput
+    setChatInput('')
+    setIsTyping(true)
+    
+    try {
+      const res = await axios.post(`${API_URL}/api/chat`, { message: currentInput })
+      setChatMessages(prev => [...prev, { role: 'ai', content: res.data.response }])
+    } catch (err) {
+      setChatMessages(prev => [...prev, { role: 'ai', content: "❌ Désolé, impossible de joindre le serveur IA actuellement." }])
+    } finally {
+      setIsTyping(false)
+    }
+  }
 
   const handleAnalyze = async () => {
       if (!analysisResults || !analysisResults.preview) return
@@ -654,9 +678,30 @@ function App() {
                       </div>
                     ) : (
                       <>
-                        <p className="text-slate-400 text-center max-w-xl mb-12 text-lg font-medium leading-relaxed">
-                          Transférez vos captures (CIC-DDoS2019) ou décrivez votre analyse.
-                        </p>
+                        {chatMessages.length === 0 ? (
+                          <p className="text-slate-400 text-center max-w-xl mb-12 text-lg font-medium leading-relaxed">
+                            Transférez vos captures (CIC-DDoS2019) ou décrivez votre analyse.
+                          </p>
+                        ) : (
+                          <div className="w-full max-w-3xl mb-8 space-y-6 h-[400px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                            {chatMessages.map((msg, i) => (
+                              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`max-w-[80%] rounded-2xl p-4 ${msg.role === 'user' ? 'bg-primary-500 text-white rounded-br-none' : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'}`}>
+                                  <p className="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</p>
+                                </div>
+                              </div>
+                            ))}
+                            {isTyping && (
+                              <div className="flex justify-start">
+                                <div className="bg-white/10 rounded-2xl rounded-bl-none p-4 border border-white/5 flex gap-2 items-center">
+                                  <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+                                  <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                                  <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
                         
                         <div className="w-full max-w-3xl relative group mt-4">
                           <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 to-indigo-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -670,6 +715,9 @@ function App() {
                             <input 
                               type="text" 
                               placeholder="Rechercher une attaque ou sélectionner un fichier CSV..." 
+                              value={chatInput}
+                              onChange={(e) => setChatInput(e.target.value)}
+                              onKeyDown={(e) => e.key === 'Enter' && handleSendChat()}
                               className="flex-1 bg-transparent border-none outline-none text-white px-4 placeholder:text-slate-500 text-lg font-medium"
                             />
 
@@ -678,7 +726,11 @@ function App() {
                                   <span>LSTM 4.0</span>
                                   <ChevronDown size={14} />
                                </button>
-                               <button className="p-2.5 bg-primary-500 text-white rounded-xl hover:bg-primary-400 hover:scale-105 transition-all shadow-lg" onClick={() => alert('Veuillez uploader un fichier avec le bouton +')}>
+                               <button 
+                                  onClick={handleSendChat}
+                                  disabled={isTyping || !chatInput.trim()}
+                                  className="p-2.5 bg-primary-500 text-white rounded-xl hover:bg-primary-400 hover:scale-105 transition-all shadow-lg disabled:opacity-50 disabled:hover:scale-100"
+                                >
                                   <ArrowUp size={20} />
                                </button>
                             </div>

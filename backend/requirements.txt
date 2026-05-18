@@ -12,3 +12,4 @@ python-dotenv
 netmiko
 scapy
 requests
+groq
