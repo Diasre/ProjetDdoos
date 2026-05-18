@@ -53,13 +53,37 @@ import html2canvas from 'html2canvas'
 const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:9000'
 
 function AuthScreen({ onLogin }) {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin();
+    setError('');
+    
+    try {
+      const storedUsers = JSON.parse(localStorage.getItem('ddos_users') || '[]');
+      
+      if (isLogin) {
+        const user = storedUsers.find(u => u.email === email && u.password === password);
+        if (user) {
+          onLogin(user);
+        } else {
+          setError('Email ou mot de passe incorrect.');
+        }
+      } else {
+        if (storedUsers.some(u => u.email === email)) {
+          setError('Cet email est déjà utilisé.');
+          return;
+        }
+        storedUsers.push({ email, password });
+        localStorage.setItem('ddos_users', JSON.stringify(storedUsers));
+        onLogin({ email });
+      }
+    } catch (err) {
+      setError('Une erreur est survenue.');
+    }
   };
 
   return (
@@ -81,6 +105,11 @@ function AuthScreen({ onLogin }) {
           </div>
 
           <form onSubmit={handleSubmit} className="w-full space-y-5">
+            {error && (
+               <div className="bg-rose-500/20 border border-rose-500/50 text-rose-400 px-4 py-3 rounded-xl text-sm font-medium text-center shadow-[0_0_15px_rgba(244,63,94,0.2)]">
+                  {error}
+               </div>
+            )}
             <div className="space-y-4">
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
