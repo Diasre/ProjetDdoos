@@ -383,7 +383,7 @@ function App() {
       <div className="bg-blur-blob" style={{ top: '30%', left: '40%', opacity: 0.05, background: 'radial-gradient(circle, #f43f5e 0%, transparent 70%)' }}></div>
 
       {/* Futuristic Vertical Sidebar */}
-      <div className="fixed top-0 left-0 bottom-0 z-50 w-20 bg-[#1e1e1e] border-r border-white/5 flex flex-col items-center py-8 shadow-2xl">
+      <div className="fixed top-0 left-0 bottom-0 z-50 w-20 bg-[#1e1e1e] border-r border-white/5 flex flex-col items-center py-4 shadow-2xl overflow-y-auto [&::-webkit-scrollbar]:hidden">
           <div className="mb-12 group cursor-pointer" title="DDoS GUARD">
             <div className="bg-gradient-to-br from-primary-400 to-indigo-600 p-2.5 rounded-xl shadow-[0_0_15px_rgba(56,189,248,0.5)] rotate-3 group-hover:rotate-12 transition-transform duration-500">
               <ShieldCheck size={28} className="text-white" />
@@ -1016,7 +1016,7 @@ function NavItem({ active, onClick, icon, label }) {
       }`}
     >
       <div className={`transition-transform duration-500 ${active ? 'scale-110' : 'group-hover:scale-110'}`}>{icon}</div>
-      {active && <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-6 rounded-r-full bg-primary-400 shadow-[0_0_10px_#0ea5e9]"></div>}
+      {active && <div className="absolute -left-[10px] top-1/2 -translate-y-1/2 w-1.5 h-6 rounded-r-full bg-primary-400 shadow-[0_0_10px_#0ea5e9]"></div>}
     </button>
   )
 }
