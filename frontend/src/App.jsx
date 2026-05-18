@@ -26,7 +26,9 @@ import {
   Terminal as TerminalIcon,
   Calendar,
   PanelLeftClose,
-  PanelLeftOpen
+  PanelLeftOpen,
+  Mail,
+  Lock
 } from 'lucide-react'
 import { 
   XAxis, 
@@ -50,7 +52,93 @@ import html2canvas from 'html2canvas'
 // API Configuration
 const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:9000'
 
+function AuthScreen({ onLogin }) {
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onLogin();
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#0a0f1c]">
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary-600/20 blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/20 blur-[120px] pointer-events-none"></div>
+
+      <div className="w-full max-w-md p-8 relative z-10 animate-in fade-in zoom-in-95 duration-1000">
+        <div className="glass-panel p-10 rounded-[2.5rem] border border-white/10 shadow-[0_0_50px_rgba(14,165,233,0.15)] flex flex-col items-center">
+          
+          <div className="mb-8 flex flex-col items-center gap-4">
+            <div className="bg-gradient-to-br from-primary-400 to-indigo-600 p-4 rounded-2xl shadow-[0_0_20px_rgba(56,189,248,0.5)]">
+              <ShieldCheck size={40} className="text-white" />
+            </div>
+            <h1 className="text-3xl font-black text-white tracking-wide">Flux-Secure</h1>
+            <p className="text-slate-400 text-sm font-medium tracking-widest uppercase text-center">
+              {isLogin ? 'Accès Sécurisé' : 'Création de compte'}
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="w-full space-y-5">
+            <div className="space-y-4">
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Mail size={20} className="text-slate-500 group-focus-within:text-primary-400 transition-colors" />
+                </div>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 text-white rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-transparent transition-all placeholder:text-slate-600 font-medium"
+                  placeholder="Adresse Email"
+                />
+              </div>
+
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Lock size={20} className="text-slate-500 group-focus-within:text-primary-400 transition-colors" />
+                </div>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 text-white rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-transparent transition-all placeholder:text-slate-600 font-medium"
+                  placeholder="Mot de passe"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-500 hover:to-indigo-500 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-primary-500/25 transition-all active:scale-[0.98] mt-4 flex items-center justify-center"
+            >
+              {isLogin ? 'Se connecter' : 'Créer mon compte'}
+            </button>
+          </form>
+
+          <div className="mt-8 pt-6 border-t border-white/10 w-full text-center">
+            <p className="text-slate-400 text-sm">
+              {isLogin ? "Nouveau sur Flux-Secure ?" : "Déjà un compte ?"}
+              <button
+                type="button"
+                onClick={() => setIsLogin(!isLogin)}
+                className="ml-2 text-primary-400 font-bold hover:text-primary-300 transition-colors"
+              >
+                {isLogin ? "S'inscrire" : "Se connecter"}
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const reportRef = useRef(null)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [activeTab, setActiveTab] = useState('analysis')
@@ -62,6 +150,10 @@ function App() {
   const [isTyping, setIsTyping] = useState(false)
   const [journalData, setJournalData] = useState({ daily: [], monthly: [], yearly: [] })
   
+  if (!isAuthenticated) {
+    return <AuthScreen onLogin={() => setIsAuthenticated(true)} />
+  }
+
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('ddos_reports') || '[]')
     setSavedReports(saved)
