@@ -24,7 +24,9 @@ import {
   Zap,
   Globe,
   Terminal as TerminalIcon,
-  Calendar
+  Calendar,
+  PanelLeftClose,
+  PanelLeftOpen
 } from 'lucide-react'
 import { 
   XAxis, 
@@ -383,12 +385,17 @@ function App() {
       <div className="bg-blur-blob" style={{ top: '30%', left: '40%', opacity: 0.05, background: 'radial-gradient(circle, #f43f5e 0%, transparent 70%)' }}></div>
 
       {/* Futuristic Vertical Sidebar */}
-      <div className="fixed top-0 left-0 bottom-0 z-50 w-64 bg-[#1e1e1e] border-r border-white/5 flex flex-col py-6 shadow-2xl overflow-y-auto [&::-webkit-scrollbar]:hidden">
-          <div className="mb-10 px-6 flex items-center gap-4 group cursor-pointer" title="Flux-Secure">
-            <div className="bg-gradient-to-br from-primary-400 to-indigo-600 p-2.5 rounded-xl shadow-[0_0_15px_rgba(56,189,248,0.5)] transition-transform duration-500">
-              <ShieldCheck size={26} className="text-white" />
+      <div className={`fixed top-0 left-0 bottom-0 z-50 w-64 bg-[#1e1e1e] border-r border-white/5 flex flex-col py-6 shadow-2xl overflow-y-auto [&::-webkit-scrollbar]:hidden transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="mb-10 px-6 flex justify-between items-center group cursor-pointer" title="Flux-Secure">
+            <div className="flex items-center gap-4">
+              <div className="bg-gradient-to-br from-primary-400 to-indigo-600 p-2.5 rounded-xl shadow-[0_0_15px_rgba(56,189,248,0.5)] transition-transform duration-500">
+                <ShieldCheck size={26} className="text-white" />
+              </div>
+              <span className="text-xl font-bold text-white tracking-wide">Flux-Secure</span>
             </div>
-            <span className="text-xl font-bold text-white tracking-wide">Flux-Secure</span>
+            <button onClick={() => setSidebarOpen(false)} className="text-slate-500 hover:text-white p-1 rounded-md hover:bg-white/10 transition-colors" title="Fermer la barre latérale">
+               <PanelLeftClose size={20} />
+            </button>
           </div>
           
           <nav className="flex flex-col gap-2 flex-1 w-full px-4">
@@ -416,7 +423,16 @@ function App() {
       </div>
 
       {/* Main Content Area */}
-      <main className="ml-64 pt-16 pb-20 px-8 md:px-16 relative z-10 min-h-screen overflow-x-hidden">
+      <main className={`pt-16 pb-20 px-8 md:px-16 relative z-10 min-h-screen overflow-x-hidden transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
+        {!sidebarOpen && (
+           <button 
+             onClick={() => setSidebarOpen(true)}
+             className="absolute top-6 left-6 z-40 p-2.5 text-slate-400 hover:text-white bg-[#1e1e1e]/80 backdrop-blur-sm hover:bg-white/10 rounded-lg transition-colors border border-white/5 shadow-lg"
+             title="Ouvrir la barre latérale"
+           >
+              <PanelLeftOpen size={20} />
+           </button>
+        )}
         <div className="max-w-7xl mx-auto w-full flex flex-col space-y-16">
           
           {/* Elite Centered Header */}
