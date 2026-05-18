@@ -10,7 +10,7 @@ import {
   Settings,
   Menu,
   X,
-  PlusCircle,
+  PlusCircle, Plus, ChevronDown, ArrowUp,
   Database,
   PieChart as PieChartIcon,
   TrendingDown,
@@ -654,13 +654,36 @@ function App() {
                       </div>
                     ) : (
                       <>
-                        <p className="text-slate-400 text-center max-w-xl mb-12 text-xl font-medium leading-relaxed">
-                          Transférez vos captures (CIC-DDoS2019) pour une classification assistée par intelligence artificielle.
+                        <p className="text-slate-400 text-center max-w-xl mb-12 text-lg font-medium leading-relaxed">
+                          Transférez vos captures (CIC-DDoS2019) ou décrivez votre analyse.
                         </p>
-                        <label className="relative overflow-hidden bg-white text-black px-16 py-6 rounded-3xl font-black hover:bg-slate-200 transition-all cursor-pointer shadow-white/10 active:scale-95 text-xl tracking-tight text-center">
-                          SÉLECTIONNER LE FICHIER CSV
-                          <input type="file" className="hidden" accept=".csv" onChange={handleFileUpload} />
-                        </label>
+                        
+                        <div className="w-full max-w-3xl relative group mt-4">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 to-indigo-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                          
+                          <div className="relative flex items-center bg-[#1e1e1e] border border-white/10 rounded-2xl p-1.5 w-full transition-all focus-within:border-primary-500/50 focus-within:bg-[#252525] shadow-2xl">
+                            <label className="cursor-pointer p-3 text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-all" title="Uploader un fichier">
+                              <Plus size={24} />
+                              <input type="file" className="hidden" accept=".csv" onChange={handleFileUpload} />
+                            </label>
+
+                            <input 
+                              type="text" 
+                              placeholder="Rechercher une attaque ou sélectionner un fichier CSV..." 
+                              className="flex-1 bg-transparent border-none outline-none text-white px-4 placeholder:text-slate-500 text-lg font-medium"
+                            />
+
+                            <div className="flex items-center gap-2 pr-1">
+                               <button className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-slate-300 text-[10px] uppercase font-black tracking-widest flex items-center gap-2 hover:bg-white/10 transition-colors">
+                                  <span>LSTM 4.0</span>
+                                  <ChevronDown size={14} />
+                               </button>
+                               <button className="p-2.5 bg-primary-500 text-white rounded-xl hover:bg-primary-400 hover:scale-105 transition-all shadow-lg" onClick={() => alert('Veuillez uploader un fichier avec le bouton +')}>
+                                  <ArrowUp size={20} />
+                               </button>
+                            </div>
+                          </div>
+                        </div>
                       </>
                     )}
                   </div>
