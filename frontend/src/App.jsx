@@ -662,10 +662,6 @@ function App() {
                 {!analysisResults ? (
                   <div className="glass-panel p-24 rounded-[4rem] flex flex-col items-center justify-center border-dashed border-4 border-slate-800 hover:border-primary-500/50 transition-all group overflow-hidden relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div className={`p-10 rounded-[2.5rem] mb-10 transition-all ring-1 ring-white/10 ${uploadStatus === 'uploading' ? 'bg-primary-500 shadow-[0_0_50px_rgba(14,165,233,0.5)] text-white' : 'bg-slate-900 group-hover:bg-primary-500 group-hover:text-white group-hover:scale-110 text-slate-600'}`}>
-                      <Upload size={64} className={uploadStatus === 'uploading' ? 'animate-bounce' : ''} />
-                    </div>
-                    
                     <h2 className="text-4xl font-extrabold mb-4 text-white tracking-tighter">Injection de Dataset Reseaux</h2>
                     
                     {uploadStatus === 'uploading' ? (
