@@ -181,6 +181,9 @@ function App() {
   const [isTyping, setIsTyping] = useState(false)
   const [journalData, setJournalData] = useState({ daily: [], monthly: [], yearly: [] })
   
+  const [strictMode, setStrictMode] = useState(true)
+  const [soundAlerts, setSoundAlerts] = useState(false)
+  
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('ddos_reports') || '[]')
     setSavedReports(saved)
@@ -1191,23 +1194,23 @@ function App() {
                        <h3 className="text-lg font-bold text-white flex items-center gap-2"><Globe size={20} className="text-indigo-400" /> Préférences de l'Application</h3>
                        
                        <div className="space-y-4">
-                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 transition-colors hover:bg-white/10">
+                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 transition-colors hover:bg-white/10 cursor-pointer" onClick={() => setStrictMode(!strictMode)}>
                              <div>
                                 <h4 className="font-bold text-slate-200">Mode Strict (Cisco IPS)</h4>
                                 <p className="text-xs text-slate-400 mt-1">Bloque automatiquement les adresses IP suspectes sans confirmation manuelle.</p>
                              </div>
-                             <div className="w-12 h-6 bg-rose-500 rounded-full relative cursor-pointer shadow-[0_0_10px_#f43f5e]">
-                                <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full transition-transform"></div>
+                             <div className={`w-12 h-6 rounded-full relative cursor-pointer transition-colors duration-300 ${strictMode ? 'bg-rose-500 shadow-[0_0_10px_#f43f5e]' : 'bg-slate-700'}`}>
+                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${strictMode ? 'right-1' : 'left-1'}`}></div>
                              </div>
                           </div>
 
-                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 transition-colors hover:bg-white/10">
+                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 transition-colors hover:bg-white/10 cursor-pointer" onClick={() => setSoundAlerts(!soundAlerts)}>
                              <div>
                                 <h4 className="font-bold text-slate-200">Alertes Sonores</h4>
                                 <p className="text-xs text-slate-400 mt-1">Émettre un signal sonore lorsqu'une attaque critique est identifiée.</p>
                              </div>
-                             <div className="w-12 h-6 bg-slate-700 rounded-full relative cursor-pointer">
-                                <div className="absolute left-1 top-1 w-4 h-4 bg-slate-400 rounded-full transition-transform"></div>
+                             <div className={`w-12 h-6 rounded-full relative cursor-pointer transition-colors duration-300 ${soundAlerts ? 'bg-emerald-500 shadow-[0_0_10px_#10b981]' : 'bg-slate-700'}`}>
+                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${soundAlerts ? 'right-1' : 'left-1'}`}></div>
                              </div>
                           </div>
                        </div>
