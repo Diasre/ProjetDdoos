@@ -426,11 +426,6 @@ function App() {
                   <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 to-rose-400">Flux-Secure</span>
                 )}
               </h1>
-              <p className="text-slate-400 text-2xl max-w-3xl mx-auto leading-relaxed font-light opacity-80 backdrop-blur-sm">
-                Advanced prediction of DDoS attack vectors using 
-                <span className="text-white font-bold"> LSTM Deep Learning </span> 
-                architectures on CIC-DDoS2019 dataset streams.
-              </p>
             </div>
             
             {activeTab === 'dashboard' && (
