@@ -533,8 +533,9 @@ function App() {
           </nav>
           
           <div className="mt-auto flex flex-col gap-4 px-4">
-            <button className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-xl text-sm font-medium w-full text-left">
-              <Settings size={20} /> Paramètres
+            <button onClick={() => setActiveTab('settings')} className={`flex items-center gap-3 p-3 w-full rounded-xl transition-all duration-200 text-sm font-medium relative ${activeTab === 'settings' ? 'bg-white/10 text-white font-semibold' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>
+              <Settings size={20} className={activeTab === 'settings' ? 'text-primary-400' : ''} /> Paramètres
+              {activeTab === 'settings' && <div className="absolute left-0 w-1 h-5 rounded-r-full bg-primary-400"></div>}
             </button>
             <div className="flex items-center justify-between p-2 hover:bg-white/5 rounded-xl transition-colors mt-2 group">
                <div className="flex items-center gap-3">
@@ -1149,6 +1150,71 @@ function App() {
                    </div>
                 </div>
              </div>
+              </div>
+           )}
+
+          {activeTab === 'settings' && (
+            <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000 max-w-4xl mx-auto w-full space-y-10">
+              <div className="glass-panel p-10 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden">
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+                 
+                 <div className="flex items-center gap-4 mb-10">
+                    <div className="bg-gradient-to-br from-slate-700 to-slate-900 p-3 rounded-2xl shadow-inner border border-white/5">
+                       <Settings size={28} className="text-primary-400" />
+                    </div>
+                    <div>
+                       <h2 className="text-3xl font-black text-white tracking-tight">Configuration Système</h2>
+                       <p className="text-slate-400 font-medium tracking-wide mt-1">Gérez vos préférences et la sécurité de votre compte</p>
+                    </div>
+                 </div>
+
+                 <div className="space-y-8 relative z-10">
+                    <div className="bg-black/40 border border-white/5 p-8 rounded-3xl space-y-6">
+                       <h3 className="text-lg font-bold text-white flex items-center gap-2"><ShieldCheck size={20} className="text-emerald-400" /> Sécurité du Compte</h3>
+                       
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Email du compte</label>
+                             <input type="text" disabled value={currentUser?.email || ''} className="w-full bg-white/5 border border-white/10 text-slate-300 rounded-xl px-4 py-3 cursor-not-allowed opacity-70" />
+                          </div>
+                          <div className="space-y-2">
+                             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Nouveau mot de passe</label>
+                             <input type="password" placeholder="••••••••" className="w-full bg-white/5 border border-white/10 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500/50" />
+                          </div>
+                       </div>
+                       <button className="bg-primary-600 hover:bg-primary-500 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg mt-2">
+                          Mettre à jour le mot de passe
+                       </button>
+                    </div>
+
+                    <div className="bg-black/40 border border-white/5 p-8 rounded-3xl space-y-6">
+                       <h3 className="text-lg font-bold text-white flex items-center gap-2"><Globe size={20} className="text-indigo-400" /> Préférences de l'Application</h3>
+                       
+                       <div className="space-y-4">
+                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 transition-colors hover:bg-white/10">
+                             <div>
+                                <h4 className="font-bold text-slate-200">Mode Strict (Cisco IPS)</h4>
+                                <p className="text-xs text-slate-400 mt-1">Bloque automatiquement les adresses IP suspectes sans confirmation manuelle.</p>
+                             </div>
+                             <div className="w-12 h-6 bg-rose-500 rounded-full relative cursor-pointer shadow-[0_0_10px_#f43f5e]">
+                                <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full transition-transform"></div>
+                             </div>
+                          </div>
+
+                          <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 transition-colors hover:bg-white/10">
+                             <div>
+                                <h4 className="font-bold text-slate-200">Alertes Sonores</h4>
+                                <p className="text-xs text-slate-400 mt-1">Émettre un signal sonore lorsqu'une attaque critique est identifiée.</p>
+                             </div>
+                             <div className="w-12 h-6 bg-slate-700 rounded-full relative cursor-pointer">
+                                <div className="absolute left-1 top-1 w-4 h-4 bg-slate-400 rounded-full transition-transform"></div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+            </div>
           )}
         </div>
       </main>
