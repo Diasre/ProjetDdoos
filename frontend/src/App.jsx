@@ -28,7 +28,8 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Mail,
-  Lock
+  Lock,
+  LogOut
 } from 'lucide-react'
 import { 
   XAxis, 
@@ -535,14 +536,26 @@ function App() {
             <button className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-xl text-sm font-medium w-full text-left">
               <Settings size={20} /> Paramètres
             </button>
-            <div className="flex items-center gap-3 p-2 hover:bg-white/5 rounded-xl cursor-pointer transition-colors mt-2 group">
-               <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-500 shadow-lg flex items-center justify-center font-bold text-white text-xs uppercase tracking-widest flex-shrink-0 group-hover:scale-105 transition-transform">
-                 {currentUser?.email ? currentUser.email.substring(0, 2) : 'AD'}
+            <div className="flex items-center justify-between p-2 hover:bg-white/5 rounded-xl transition-colors mt-2 group">
+               <div className="flex items-center gap-3">
+                 <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-500 shadow-lg flex items-center justify-center font-bold text-white text-xs uppercase tracking-widest flex-shrink-0 group-hover:scale-105 transition-transform cursor-pointer">
+                   {currentUser?.email ? currentUser.email.substring(0, 2) : 'AD'}
+                 </div>
+                 <div className="flex flex-col overflow-hidden cursor-pointer">
+                   <span className="text-sm font-bold text-slate-200 truncate">{currentUser?.email ? currentUser.email.split('@')[0] : 'Admin User'}</span>
+                   <span className="text-[10px] text-slate-500 truncate">Forfait Pro</span>
+                 </div>
                </div>
-               <div className="flex flex-col overflow-hidden">
-                 <span className="text-sm font-bold text-slate-200 truncate">{currentUser?.email ? currentUser.email.split('@')[0] : 'Admin User'}</span>
-                 <span className="text-[10px] text-slate-500 truncate">Forfait Pro</span>
-               </div>
+               <button 
+                 onClick={() => {
+                   setIsAuthenticated(false);
+                   setCurrentUser(null);
+                 }}
+                 className="text-slate-500 hover:text-rose-400 p-1.5 rounded-lg hover:bg-rose-500/10 transition-colors"
+                 title="Se déconnecter"
+               >
+                 <LogOut size={16} />
+               </button>
             </div>
           </div>
       </div>
