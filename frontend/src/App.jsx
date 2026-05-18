@@ -264,6 +264,7 @@ function App() {
 
     setUploadStatus('uploading')
     setUploadProgress(0)
+    setActiveTab('analysis') // Redirection immédiate pour voir la barre de progression
     const formData = new FormData()
     formData.append('file', file)
 
