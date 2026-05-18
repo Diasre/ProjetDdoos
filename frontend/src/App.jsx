@@ -711,7 +711,7 @@ function App() {
 
                             <input 
                               type="text" 
-                              placeholder="Rechercher une attaque ou sélectionner un fichier CSV..." 
+                              placeholder="Rechercher (ex: SYN-Flood, UDP-Lag) ou uploader un CSV..." 
                               value={chatInput}
                               onChange={(e) => setChatInput(e.target.value)}
                               onKeyDown={(e) => e.key === 'Enter' && handleSendChat()}
