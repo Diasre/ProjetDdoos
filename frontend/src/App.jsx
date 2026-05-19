@@ -579,6 +579,7 @@ function App() {
         <div className="max-w-7xl mx-auto w-full flex flex-col space-y-16">
           
           {/* Elite Centered Header */}
+          {activeTab !== 'settings' && (
           <header className="flex flex-col items-center text-center space-y-8 w-full mb-8 animate-float">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 text-[10px] font-black tracking-[0.2em] uppercase text-primary-400">
@@ -624,6 +625,7 @@ function App() {
               </div>
             )}
           </header>
+          )}
 
           {/* Dashoard UI Section */}
           {activeTab === 'dashboard' && (
