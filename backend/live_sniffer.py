@@ -1,10 +1,12 @@
+import os
 import time
 import requests
 import threading
 from scapy.all import sniff, IP, TCP, UDP
 
 # Configuration
-API_ENDPOINT = "http://127.0.0.1:9000/api/analyze"
+# Mettez ici l'URL de votre backend déployé, ou définissez la variable d'environnement DDOS_API_URL
+API_ENDPOINT = os.environ.get("DDOS_API_URL", "http://127.0.0.1:9000") + "/api/analyze"
 BATCH_SIZE = 5   # Rabaissé à 5 pour une réaction quasi-instantanée (5 secondes avec un Ping lent)
 ENABLE_CONSOLE = True
 
