@@ -850,7 +850,7 @@ function App() {
                             {chatMessages.map((msg, i) => (
                               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-[80%] rounded-2xl p-4 ${msg.role === 'user' ? 'bg-primary-500 text-white rounded-br-none' : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'}`}>
-                                  <div className="text-sm leading-relaxed prose-dark" dangerouslySetInnerHTML={{__html: msg.content
+                                  <div className="text-sm leading-relaxed" style={{color:'#cbd5e1'}} dangerouslySetInnerHTML={{__html: msg.content
   .replace(/&/g, '&amp;')
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;')
