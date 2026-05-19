@@ -850,7 +850,22 @@ function App() {
                             {chatMessages.map((msg, i) => (
                               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-[80%] rounded-2xl p-4 ${msg.role === 'user' ? 'bg-primary-500 text-white rounded-br-none' : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'}`}>
-                                  <p className="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</p>
+                                  <div className="text-sm leading-relaxed prose-dark" dangerouslySetInnerHTML={{__html: msg.content
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+  .replace(/\*(.+?)\*/g, '<em>$1</em>')
+  .replace(/^#{1,3}\s+(.+)$/gm, '<h4 style="font-weight:700;margin:8px 0 4px;font-size:0.95em">$1</h4>')
+  .replace(/^={3,}$/gm, '<hr style="border-color:rgba(255,255,255,0.1);margin:8px 0"/>')
+  .replace(/^-{3,}$/gm, '<hr style="border-color:rgba(255,255,255,0.1);margin:8px 0"/>')
+  .replace(/^[\-\*]\s+(.+)$/gm, '<li style="margin-left:16px;list-style:disc">$1</li>')
+  .replace(/
+
+/g, '<br/><br/>')
+  .replace(/
+/g, '<br/>')
+}} />
                                 </div>
                               </div>
                             ))}
