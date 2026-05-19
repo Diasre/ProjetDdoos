@@ -75,7 +75,7 @@ function AuthScreen({ onLogin }) {
         }
       } else {
         if (storedUsers.some(u => u.email === email)) {
-          setError('Cet email est déjà utilisé.');
+          setError('Cet email est d??j?? utilis??.');
           return;
         }
         storedUsers.push({ email, password });
@@ -101,7 +101,7 @@ function AuthScreen({ onLogin }) {
             </div>
             <h1 className="text-3xl font-black text-white tracking-wide">Flux-Secure</h1>
             <p className="text-slate-400 text-sm font-medium tracking-widest uppercase text-center">
-              {isLogin ? 'Accès Sécurisé' : 'Création de compte'}
+              {isLogin ? 'Acc??s S??curis??' : 'Cr??ation de compte'}
             </p>
           </div>
 
@@ -145,13 +145,13 @@ function AuthScreen({ onLogin }) {
               type="submit"
               className="w-full bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-500 hover:to-indigo-500 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-primary-500/25 transition-all active:scale-[0.98] mt-4 flex items-center justify-center"
             >
-              {isLogin ? 'Se connecter' : 'Créer mon compte'}
+              {isLogin ? 'Se connecter' : 'Cr??er mon compte'}
             </button>
           </form>
 
           <div className="mt-8 pt-6 border-t border-white/10 w-full text-center">
             <p className="text-slate-400 text-sm">
-              {isLogin ? "Nouveau sur Flux-Secure ?" : "Déjà un compte ?"}
+              {isLogin ? "Nouveau sur Flux-Secure ?" : "D??j?? un compte ?"}
               <button
                 type="button"
                 onClick={() => setIsLogin(!isLogin)}
@@ -175,12 +175,11 @@ function App() {
   const [activeTab, setActiveTab] = useState('analysis')
   const [savedReports, setSavedReports] = useState([])
   
-  // Nouveaux états pour le Chat IA
+  // Nouveaux ??tats pour le Chat IA
   const [chatMessages, setChatMessages] = useState([])
   const [chatInput, setChatInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const [journalData, setJournalData] = useState({ daily: [], monthly: [], yearly: [] })
-  
   const [strictMode, setStrictMode] = useState(true)
   const [soundAlerts, setSoundAlerts] = useState(false)
   const [activeSettingsTab, setActiveSettingsTab] = useState('general')
@@ -254,7 +253,7 @@ function App() {
     doc.text(`DATE DE L'AUDIT :`, 60, 220)
     doc.text(`${reportData.date}`, 180, 220)
     
-    doc.text(`SOURCE DES DONNÉES :`, 60, 245)
+    doc.text(`SOURCE DES DONN??ES :`, 60, 245)
     doc.text(`${reportData.filename}`, 180, 245)
     
     doc.text(`NIVEAU DE MENACE :`, 60, 270)
@@ -282,15 +281,15 @@ function App() {
        doc.text(label, 60, y)
        
        doc.setFont("helvetica", "normal")
-       doc.text(`${reportData.stats[label]} paquets identifiés`, pageWidth - 200, y)
+       doc.text(`${reportData.stats[label]} paquets identifi??s`, pageWidth - 200, y)
        y += 25
     })
 
     // Footer
     doc.setFontSize(8)
     doc.setTextColor(148, 163, 184)
-    doc.text("Ce document est généré automatiquement par le système DDoS Guard LSTM.", 40, pageWidth + 250)
-    doc.text("Copyright © 2026 DDoS Guard Infrastructure.", 40, pageWidth + 265)
+    doc.text("Ce document est g??n??r?? automatiquement par le syst??me DDoS Guard LSTM.", 40, pageWidth + 250)
+    doc.text("Copyright ?? 2026 DDoS Guard Infrastructure.", 40, pageWidth + 265)
 
     const finalFilename = `DDoS_Report_${Date.now()}.pdf`
     
@@ -331,7 +330,7 @@ function App() {
     }
   }, [systemLogs])
 
-  // Polling Temps Réel
+  // Polling Temps R??el
   useEffect(() => {
     let interval;
     if (isLiveMode) {
@@ -394,14 +393,14 @@ function App() {
 
     setUploadStatus('uploading')
     setUploadProgress(0)
-    setActiveTab('analysis') // Redirection immédiate pour voir la barre de progression
+    setActiveTab('analysis') // Redirection imm??diate pour voir la barre de progression
     const formData = new FormData()
     formData.append('file', file)
 
     try {
       const response = await axios.post(`${API_URL}/api/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 60000, // On attend jusqu'à 60 secondes pour les gros fichiers
+        timeout: 60000, // On attend jusqu'?? 60 secondes pour les gros fichiers
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
           setUploadProgress(percentCompleted)
@@ -414,7 +413,7 @@ function App() {
     } catch (error) {
       console.error("Upload error:", error)
       setUploadStatus('error')
-      alert("❌ Erreur de connexion au serveur ! Vérifiez que le backend tourne bien sur le port 9000.")
+      alert("??? Erreur de connexion au serveur ! V??rifiez que le backend tourne bien sur le port 9000.")
     }
 }
 
@@ -431,7 +430,7 @@ function App() {
       const res = await axios.post(`${API_URL}/api/chat`, { message: currentInput })
       setChatMessages(prev => [...prev, { role: 'ai', content: res.data.response }])
     } catch (err) {
-      setChatMessages(prev => [...prev, { role: 'ai', content: "❌ Désolé, impossible de joindre le serveur IA actuellement." }])
+      setChatMessages(prev => [...prev, { role: 'ai', content: "??? D??sol??, impossible de joindre le serveur IA actuellement." }])
     } finally {
       setIsTyping(false)
     }
@@ -470,14 +469,14 @@ function App() {
   ]
 
   const COLORS_MAP = {
-    'BENIGN': '#10b981',      // Vert Émeraude
+    'BENIGN': '#10b981',      // Vert ??meraude
     'UDP-lag': '#f43f5e',     // Rose/Rouge
     'SYN-Flood': '#ef4444',   // Rouge
-    'HTTP-Flood': '#dc2626',  // Rouge foncé
+    'HTTP-Flood': '#dc2626',  // Rouge fonc??
     'DrDoS_SNMP': '#b91c1c',  // Rouge Sang
     'DrDoS_DNS': '#991b1b',   // Bordeaux
     'Brute Force': '#d946ef', // Fuchsia
-    'DrDoS_LDAP': '#f59e0b',  // Ambré / Orange
+    'DrDoS_LDAP': '#f59e0b',  // Ambr?? / Orange
     'DrDoS_MSSQL': '#0284c7', // Bleu Cyan
     'DrDoS_NetBIOS': '#eab308',// Jaune Moutarde / Or
     'DrDoS_Portmap': '#6366f1',// Indigo / Bleu Violet
@@ -490,7 +489,7 @@ function App() {
     ? Object.keys(predictionStats).map((key) => ({
         name: key,
         value: predictionStats[key],
-        color: COLORS_MAP[key] || '#f43f5e' // Rouge par défaut pour toute attaque non listée
+        color: COLORS_MAP[key] || '#f43f5e' // Rouge par d??faut pour toute attaque non list??e
       }))
     : [
         { name: 'BENIGN', value: 45, color: '#10b981' },
@@ -523,7 +522,7 @@ function App() {
               </div>
               <span className="text-xl font-bold text-white tracking-wide">Flux-Secure</span>
             </div>
-            <button onClick={() => setSidebarOpen(false)} className="text-slate-500 hover:text-white p-1 rounded-md hover:bg-white/10 transition-colors" title="Fermer la barre latérale">
+            <button onClick={() => setSidebarOpen(false)} className="text-slate-500 hover:text-white p-1 rounded-md hover:bg-white/10 transition-colors" title="Fermer la barre lat??rale">
                <PanelLeftClose size={20} />
             </button>
           </div>
@@ -537,9 +536,8 @@ function App() {
           </nav>
           
           <div className="mt-auto flex flex-col gap-4 px-4">
-            <button onClick={() => setActiveTab('settings')} className={`flex items-center gap-3 p-3 w-full rounded-xl transition-all duration-200 text-sm font-medium relative ${activeTab === 'settings' ? 'bg-white/10 text-white font-semibold' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>
+            <button onClick={() => setActiveTab('settings')} className={`flex items-center gap-3 p-3 w-full rounded-xl transition-all text-sm font-medium ${activeTab === 'settings' ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>
               <Settings size={20} className={activeTab === 'settings' ? 'text-primary-400' : ''} /> Paramètres
-              {activeTab === 'settings' && <div className="absolute left-0 w-1 h-5 rounded-r-full bg-primary-400"></div>}
             </button>
             <div className="flex items-center justify-between p-2 hover:bg-white/5 rounded-xl transition-colors mt-2 group">
                <div className="flex items-center gap-3">
@@ -557,7 +555,7 @@ function App() {
                    setCurrentUser(null);
                  }}
                  className="text-slate-500 hover:text-rose-400 p-1.5 rounded-lg hover:bg-rose-500/10 transition-colors"
-                 title="Se déconnecter"
+                 title="Se d??connecter"
                >
                  <LogOut size={16} />
                </button>
@@ -571,7 +569,7 @@ function App() {
            <button 
              onClick={() => setSidebarOpen(true)}
              className="absolute top-6 left-6 z-40 p-2.5 text-slate-400 hover:text-white bg-[#1e1e1e]/80 backdrop-blur-sm hover:bg-white/10 rounded-lg transition-colors border border-white/5 shadow-lg"
-             title="Ouvrir la barre latérale"
+             title="Ouvrir la barre lat??rale"
            >
               <PanelLeftOpen size={20} />
            </button>
@@ -610,9 +608,9 @@ function App() {
                    className={`group relative overflow-hidden px-8 py-5 md:px-12 rounded-3xl font-black transition-all hover:-translate-y-2 active:scale-95 text-lg md:text-xl flex items-center gap-4 border ${isLiveMode ? 'bg-rose-600/20 border-rose-500/50 text-rose-400 shadow-[0_20px_50px_rgba(244,63,94,0.3)] glow-border-danger' : 'bg-primary-600 border-transparent text-white shadow-[0_20px_50px_rgba(14,165,233,0.3)]'}`}
                  >
                     {isLiveMode ? (
-                       <><span className="flex h-3 w-3 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span></span> DÉSACTIVER ÉCOUTE</>
+                       <><span className="flex h-3 w-3 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span></span> D??SACTIVER ??COUTE</>
                     ) : (
-                       <><Globe size={28} className="animate-pulse text-primary-300" /> DÉPLOYER CAPTEUR LIVE</>
+                       <><Globe size={28} className="animate-pulse text-primary-300" /> D??PLOYER CAPTEUR LIVE</>
                     )}
                  </button>
 
@@ -828,7 +826,7 @@ function App() {
                     {uploadStatus === 'uploading' ? (
                       <div className="w-full max-w-md space-y-4 mb-12">
                         <div className="flex justify-between text-sm font-black uppercase tracking-widest text-primary-400">
-                          <span>Téléchargement...</span>
+                          <span>T??l??chargement...</span>
                           <span>{uploadProgress}%</span>
                         </div>
                         <div className="h-4 w-full bg-slate-800 rounded-full overflow-hidden p-1 shadow-inner border border-white/5">
@@ -839,13 +837,13 @@ function App() {
                             <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
                           </div>
                         </div>
-                        <p className="text-slate-500 text-center text-sm italic">Séquençage du trafic en cours...</p>
+                        <p className="text-slate-500 text-center text-sm italic">S??quen??age du trafic en cours...</p>
                       </div>
                     ) : (
                       <>
                         {chatMessages.length === 0 ? (
                           <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter text-center mb-12 max-w-2xl leading-tight">
-                            Sur quel type de sécurité voulez-vous travailler ?
+                            Sur quel type de s??curit?? voulez-vous travailler ?
                           </h2>
                         ) : (
                           <div className="w-full max-w-3xl mb-8 space-y-6 h-[400px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
@@ -918,15 +916,15 @@ function App() {
                           <div className="p-5 bg-primary-500/10 rounded-2xl mb-6 text-primary-400">
                             <Database size={48} />
                           </div>
-                          <span className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-2">Flux de Données</span>
+                          <span className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-2">Flux de Donn??es</span>
                           <span className="text-4xl font-black text-white">{analysisResults.row_count}</span>
                        </div>
                        <div className="glass-panel p-10 rounded-[3rem] flex flex-col items-center text-center group hover:glow-border-primary transition-all">
                           <div className="p-5 bg-primary-500/10 rounded-2xl mb-6 text-primary-400">
                             <ShieldCheck size={48} />
                           </div>
-                          <span className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-2">Statut Intégrité</span>
-                          <span className="text-emerald-400 text-2xl font-black">Prêt pour Inference</span>
+                          <span className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-2">Statut Int??grit??</span>
+                          <span className="text-emerald-400 text-2xl font-black">Pr??t pour Inference</span>
                        </div>
                     </div>
 
@@ -934,10 +932,10 @@ function App() {
                        <div className="p-10 border-b border-white/5 flex justify-between items-center bg-white/5">
                          <h3 className="text-2xl font-black flex items-center gap-4">
                            <div className="w-1.5 h-7 bg-primary-500 rounded-full"></div>
-                           Structure de Features Détectée
+                           Structure de Features D??tect??e
                          </h3>
                          <button onClick={() => setAnalysisResults(null)} className="px-6 py-2 rounded-full border border-white/10 text-xs font-black uppercase text-slate-400 hover:text-white transition-colors">
-                           Réinitialiser
+                           R??initialiser
                          </button>
                        </div>
                        <div className="overflow-x-auto">
@@ -989,13 +987,13 @@ function App() {
                 <div className="flex justify-between items-end mb-4">
                    <div>
                      <h2 className="text-5xl font-black text-white tracking-tighter mb-4">Journal Global</h2>
-                     <p className="text-slate-400 text-lg">Persistance SQLite des menaces interceptées au fil du temps.</p>
+                     <p className="text-slate-400 text-lg">Persistance SQLite des menaces intercept??es au fil du temps.</p>
                    </div>
                 </div>
                 
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
                     <div className="glass-panel p-10 rounded-[3rem]">
-                      <h3 className="text-3xl font-black text-white mb-8 border-b border-white/5 pb-4">Activité Journalière (14j)</h3>
+                      <h3 className="text-3xl font-black text-white mb-8 border-b border-white/5 pb-4">Activit?? Journali??re (14j)</h3>
                       <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                           <BarChart data={journalData.daily} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
@@ -1010,7 +1008,7 @@ function App() {
                     </div>
 
                     <div className="glass-panel p-10 rounded-[3rem]">
-                      <h3 className="text-3xl font-black text-white mb-8 border-b border-white/5 pb-4">Activité Mensuelle (12m)</h3>
+                      <h3 className="text-3xl font-black text-white mb-8 border-b border-white/5 pb-4">Activit?? Mensuelle (12m)</h3>
                       <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                           <AreaChart data={journalData.monthly} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
@@ -1031,7 +1029,7 @@ function App() {
                     </div>
                     
                     <div className="xl:col-span-2 glass-panel p-10 rounded-[3rem]">
-                      <h3 className="text-3xl font-black text-white mb-8 border-b border-white/5 pb-4">Activité Annuelle</h3>
+                      <h3 className="text-3xl font-black text-white mb-8 border-b border-white/5 pb-4">Activit?? Annuelle</h3>
                       <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                           <BarChart data={journalData.yearly} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
@@ -1059,7 +1057,7 @@ function App() {
                <div className="flex justify-between items-end mb-4">
                   <div>
                     <h2 className="text-5xl font-black text-white tracking-tighter mb-4">Intelligence Archive</h2>
-                    <p className="text-slate-400 text-lg">Consultez et exportez vos audits de sécurité passés.</p>
+                    <p className="text-slate-400 text-lg">Consultez et exportez vos audits de s??curit?? pass??s.</p>
                   </div>
                   <div className="bg-white/5 px-6 py-3 rounded-2xl border border-white/10 flex items-center gap-4 animate-pulse">
                      <BrainCircuit size={24} className="text-primary-400" />
@@ -1073,7 +1071,7 @@ function App() {
                        <FileText size={64} />
                     </div>
                     <h3 className="text-2xl font-black text-white mb-4">Aucun rapport disponible</h3>
-                    <p className="text-slate-500 max-w-md">Réalisez une analyse IA pour générer votre premier audit de sécurité.</p>
+                    <p className="text-slate-500 max-w-md">R??alisez une analyse IA pour g??n??rer votre premier audit de s??curit??.</p>
                     <button onClick={() => setActiveTab('analysis')} className="mt-8 text-primary-400 font-extrabold uppercase text-xs tracking-widest flex items-center gap-2 hover:gap-4 transition-all underline underline-offset-8">
                        Lancer une analyse <ChevronRight size={16} />
                     </button>
@@ -1113,7 +1111,7 @@ function App() {
                             </button>
                             <button 
                                onClick={() => {
-                                 if (window.confirm("🗑️ Voulez-vous vraiment supprimer cet audit de l'historique ?")) {
+                                 if (window.confirm("??????? Voulez-vous vraiment supprimer cet audit de l'historique ?")) {
                                    const updated = savedReports.filter(r => r.id !== report.id)
                                    setSavedReports(updated)
                                    localStorage.setItem('ddos_reports', JSON.stringify(updated))
@@ -1156,75 +1154,102 @@ function App() {
                    </div>
                 </div>
              </div>
-              </div>
-           )}
+          )}
 
           {activeTab === 'settings' && (
-            <div className="animate-in fade-in slide-in-from-bottom-10 duration-700 max-w-5xl mx-auto w-full bg-[#1e1e1e] rounded-2xl overflow-hidden border border-white/5 flex min-h-[600px] shadow-2xl relative z-20">
-              {/* Left Sidebar for Settings */}
-              <div className="w-64 bg-[#1a1a1a] p-6 border-r border-white/5 flex flex-col gap-1">
-                 <h2 className="text-2xl font-serif text-white mb-8 px-2">Paramètres</h2>
-                 
-                 <button onClick={() => setActiveSettingsTab('general')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'general' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Général</button>
-                 <button onClick={() => setActiveSettingsTab('compte')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'compte' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Compte</button>
-                 <button onClick={() => setActiveSettingsTab('confidentialite')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'confidentialite' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Confidentialité</button>
-                 <button onClick={() => setActiveSettingsTab('facturation')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'facturation' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Facturation</button>
-                 <button onClick={() => setActiveSettingsTab('capacites')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'capacites' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Capacités</button>
-                 <button onClick={() => setActiveSettingsTab('connecteurs')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'connecteurs' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Connecteurs</button>
-                 <button onClick={() => setActiveSettingsTab('code')} className={`text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${activeSettingsTab === 'code' ? 'bg-[#2a2a2a] text-white' : 'text-slate-300 hover:bg-[#2a2a2a]/50 hover:text-white'}`}>Flux-Secure Code</button>
+            <div style={{display:'flex', minHeight:'600px', background:'#1e1e1e', borderRadius:'1rem', overflow:'hidden', border:'1px solid rgba(255,255,255,0.05)', boxShadow:'0 25px 50px rgba(0,0,0,0.5)'}}>
+              <div style={{width:'220px', background:'#1a1a1a', padding:'1.5rem', borderRight:'1px solid rgba(255,255,255,0.05)', display:'flex', flexDirection:'column', gap:'4px'}}>
+                 <h2 style={{fontSize:'1.25rem', fontWeight:'700', color:'white', marginBottom:'2rem', paddingLeft:'0.5rem'}}>Param&#232;tres</h2>
+                 {[['general','G&#233;n&#233;ral'],['compte','Compte'],['confidentialite','Confidentialit&#233;'],['facturation','Facturation'],['capacites','Capacit&#233;s'],['connecteurs','Connecteurs'],['code','Flux-Secure Code']].map(([key, label]) => (
+                   <button key={key} onClick={() => setActiveSettingsTab(key)}
+                     style={{textAlign:'left', padding:'0.625rem 1rem', borderRadius:'0.5rem', fontSize:'0.875rem', fontWeight:'500', cursor:'pointer', border:'none', transition:'all 0.2s', background: activeSettingsTab === key ? '#2a2a2a' : 'transparent', color: activeSettingsTab === key ? 'white' : '#94a3b8'}}
+                     dangerouslySetInnerHTML={{__html: label}}
+                   />
+                 ))}
               </div>
-
-              {/* Right Content */}
-              <div className="flex-1 p-10 bg-[#1e1e1e]">
+              <div style={{flex:1, padding:'2.5rem', background:'#1e1e1e', overflowY:'auto'}}>
                  {activeSettingsTab === 'general' && (
-                   <div className="space-y-8 max-w-2xl animate-in fade-in">
-                      <h3 className="text-lg font-bold text-white mb-6">Profil</h3>
-                      
-                      <div className="space-y-6">
-                        {/* Avatar */}
-                        <div className="flex items-center justify-between py-4 border-b border-white/5">
-                           <span className="text-sm font-medium text-slate-200">Avatar</span>
-                           <div className="w-10 h-10 rounded-full bg-[#3f3f46] flex items-center justify-center text-white font-bold text-sm">
-                              {currentUser?.email ? currentUser.email.substring(0, 1).toUpperCase() : 'B'}
+                   <div style={{maxWidth:'600px'}}>
+                      <h3 style={{fontSize:'1.125rem', fontWeight:'700', color:'white', marginBottom:'1.5rem'}}>Profil</h3>
+                      <div style={{display:'flex', flexDirection:'column', gap:'0'}}>
+                        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'1rem 0', borderBottom:'1px solid rgba(255,255,255,0.05)'}}>
+                           <span style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0'}}>Avatar</span>
+                           <div style={{width:'2.5rem', height:'2.5rem', borderRadius:'50%', background:'#3f3f46', display:'flex', alignItems:'center', justifyContent:'center', color:'white', fontWeight:'700', fontSize:'0.875rem'}}>
+                              {currentUser?.email ? currentUser.email.substring(0,1).toUpperCase() : 'U'}
                            </div>
                         </div>
-
-                        {/* Nom complet */}
-                        <div className="flex items-center justify-between py-4 border-b border-white/5">
-                           <span className="text-sm font-medium text-slate-200 w-1/2">Nom complet</span>
-                           <input type="text" className="bg-[#2a2a2a] border border-white/5 text-white rounded-lg px-3 py-2 w-1/2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-500" defaultValue={currentUser?.email ? currentUser.email.split('@')[0] : 'Babel'} />
+                        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'1rem 0', borderBottom:'1px solid rgba(255,255,255,0.05)'}}>
+                           <span style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0', width:'50%'}}>Nom complet</span>
+                           <input type="text" style={{background:'#2a2a2a', border:'1px solid rgba(255,255,255,0.05)', color:'white', borderRadius:'0.5rem', padding:'0.5rem 0.75rem', fontSize:'0.875rem', width:'50%', outline:'none'}} defaultValue={currentUser?.email ? currentUser.email.split('@')[0] : 'Utilisateur'} />
                         </div>
-
-                        {/* Comment souhaitez-vous... */}
-                        <div className="flex items-center justify-between py-4 border-b border-white/5">
-                           <span className="text-sm font-medium text-slate-200 w-1/2">Comment souhaitez-vous que Flux-Secure vous appelle ?</span>
-                           <input type="text" className="bg-[#2a2a2a] border border-white/5 text-white rounded-lg px-3 py-2 w-1/2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-500" defaultValue={currentUser?.email ? currentUser.email.split('@')[0] : 'Babel'} />
+                        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'1rem 0', borderBottom:'1px solid rgba(255,255,255,0.05)'}}>
+                           <span style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0', width:'50%'}}>Comment souhaitez-vous que Flux-Secure vous appelle ?</span>
+                           <input type="text" style={{background:'#2a2a2a', border:'1px solid rgba(255,255,255,0.05)', color:'white', borderRadius:'0.5rem', padding:'0.5rem 0.75rem', fontSize:'0.875rem', width:'50%', outline:'none'}} defaultValue={currentUser?.email ? currentUser.email.split('@')[0] : 'Utilisateur'} />
                         </div>
-
-                        {/* Description du travail */}
-                        <div className="flex items-center justify-between py-4 border-b border-white/5">
-                           <span className="text-sm font-medium text-slate-200">Quelle est la meilleure description de votre travail ?</span>
-                           <button className="flex items-center gap-2 text-slate-400 text-sm hover:text-white transition-colors">
-                              Sélectionner <ChevronDown size={16} />
+                        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'1rem 0', borderBottom:'1px solid rgba(255,255,255,0.05)'}}>
+                           <span style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0'}}>Quelle est la meilleure description de votre travail ?</span>
+                           <button style={{display:'flex', alignItems:'center', gap:'0.5rem', color:'#94a3b8', fontSize:'0.875rem', background:'none', border:'none', cursor:'pointer'}}>
+                              S&#233;lectionner &#8964;
                            </button>
                         </div>
-
-                        {/* Instructions */}
-                        <div className="pt-4">
-                           <span className="text-sm font-medium text-slate-200 block mb-2">Instructions pour Flux-Secure</span>
-                           <p className="text-xs text-slate-500 leading-relaxed">
-                              Le modèle gardera ces éléments à l'esprit lors des analyses, conformément aux <a href="#" className="underline hover:text-slate-300">directives de sécurité</a>.<br/>
-                              <a href="#" className="underline hover:text-slate-300">En savoir plus</a>
+                        <div style={{paddingTop:'1.5rem'}}>
+                           <span style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0', display:'block', marginBottom:'0.5rem'}}>Instructions pour Flux-Secure</span>
+                           <p style={{fontSize:'0.75rem', color:'#64748b', lineHeight:'1.6'}}>
+                              Le mod&#232;le gardera ces &#233;l&#233;ments &#224; l&apos;esprit lors des analyses.
                            </p>
                         </div>
                       </div>
                    </div>
                  )}
-
-                 {activeSettingsTab !== 'general' && (
-                    <div className="flex items-center justify-center h-full animate-in fade-in">
-                       <p className="text-slate-500">Section en cours de construction.</p>
-                    </div>
+                 {activeSettingsTab === 'confidentialite' && (
+                   <div style={{maxWidth:'600px'}}>
+                      <h3 style={{fontSize:'1.125rem', fontWeight:'700', color:'white', marginBottom:'1.5rem'}}>Pr&#233;f&#233;rences</h3>
+                      <div style={{display:'flex', flexDirection:'column', gap:'0'}}>
+                        <div onClick={() => setStrictMode(!strictMode)} style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'1rem 0', borderBottom:'1px solid rgba(255,255,255,0.05)', cursor:'pointer'}}>
+                           <div>
+                              <h4 style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0', margin:'0 0 4px'}}>Mode Strict (Cisco IPS)</h4>
+                              <p style={{fontSize:'0.75rem', color:'#64748b', margin:'0'}}>Bloque automatiquement les IP suspectes.</p>
+                           </div>
+                           <div style={{width:'44px', height:'24px', borderRadius:'9999px', background: strictMode ? '#0ea5e9' : '#334155', position:'relative', transition:'background 0.3s', flexShrink:'0'}}>
+                              <div style={{position:'absolute', top:'3px', width:'18px', height:'18px', background:'white', borderRadius:'50%', transition:'all 0.3s', left: strictMode ? 'calc(100% - 21px)' : '3px'}}></div>
+                           </div>
+                        </div>
+                        <div onClick={() => setSoundAlerts(!soundAlerts)} style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'1rem 0', borderBottom:'1px solid rgba(255,255,255,0.05)', cursor:'pointer'}}>
+                           <div>
+                              <h4 style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0', margin:'0 0 4px'}}>Alertes Sonores</h4>
+                              <p style={{fontSize:'0.75rem', color:'#64748b', margin:'0'}}>Signal sonore lors d&apos;une attaque critique.</p>
+                           </div>
+                           <div style={{width:'44px', height:'24px', borderRadius:'9999px', background: soundAlerts ? '#10b981' : '#334155', position:'relative', transition:'background 0.3s', flexShrink:'0'}}>
+                              <div style={{position:'absolute', top:'3px', width:'18px', height:'18px', background:'white', borderRadius:'50%', transition:'all 0.3s', left: soundAlerts ? 'calc(100% - 21px)' : '3px'}}></div>
+                           </div>
+                        </div>
+                      </div>
+                   </div>
+                 )}
+                 {activeSettingsTab === 'compte' && (
+                   <div style={{maxWidth:'600px'}}>
+                      <h3 style={{fontSize:'1.125rem', fontWeight:'700', color:'white', marginBottom:'1.5rem'}}>S&#233;curit&#233; du Compte</h3>
+                      <div style={{display:'flex', flexDirection:'column', gap:'0'}}>
+                        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'1rem 0', borderBottom:'1px solid rgba(255,255,255,0.05)'}}>
+                           <span style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0', width:'50%'}}>Email</span>
+                           <input type="text" disabled value={currentUser?.email || ''} style={{background:'#2a2a2a', border:'1px solid rgba(255,255,255,0.05)', color:'#94a3b8', borderRadius:'0.5rem', padding:'0.5rem 0.75rem', fontSize:'0.875rem', width:'50%', opacity:'0.7', cursor:'not-allowed'}} />
+                        </div>
+                        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'1rem 0', borderBottom:'1px solid rgba(255,255,255,0.05)'}}>
+                           <span style={{fontSize:'0.875rem', fontWeight:'500', color:'#e2e8f0', width:'50%'}}>Nouveau mot de passe</span>
+                           <input type="password" placeholder="••••••••" style={{background:'#2a2a2a', border:'1px solid rgba(255,255,255,0.05)', color:'white', borderRadius:'0.5rem', padding:'0.5rem 0.75rem', fontSize:'0.875rem', width:'50%', outline:'none'}} />
+                        </div>
+                        <div style={{paddingTop:'1rem'}}>
+                           <button style={{background:'#0ea5e9', color:'white', fontWeight:'700', padding:'0.625rem 1.5rem', borderRadius:'0.5rem', border:'none', cursor:'pointer', fontSize:'0.875rem'}}>
+                              Mettre &#224; jour
+                           </button>
+                        </div>
+                      </div>
+                   </div>
+                 )}
+                 {!['general','compte','confidentialite'].includes(activeSettingsTab) && (
+                   <div style={{display:'flex', alignItems:'center', justifyContent:'center', height:'200px'}}>
+                      <p style={{color:'#64748b', fontSize:'0.875rem'}}>Section en cours de construction.</p>
+                   </div>
                  )}
               </div>
             </div>
