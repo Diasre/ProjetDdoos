@@ -608,9 +608,9 @@ function App() {
                    className={`group relative overflow-hidden px-8 py-5 md:px-12 rounded-3xl font-black transition-all hover:-translate-y-2 active:scale-95 text-lg md:text-xl flex items-center gap-4 border ${isLiveMode ? 'bg-rose-600/20 border-rose-500/50 text-rose-400 shadow-[0_20px_50px_rgba(244,63,94,0.3)] glow-border-danger' : 'bg-primary-600 border-transparent text-white shadow-[0_20px_50px_rgba(14,165,233,0.3)]'}`}
                  >
                     {isLiveMode ? (
-                       <><span className="flex h-3 w-3 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span></span> D??SACTIVER ??COUTE</>
+                       <><span className="flex h-3 w-3 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span></span> DÉSACTIVER ÉCOUTE</>
                     ) : (
-                       <><Globe size={28} className="animate-pulse text-primary-300" /> D??PLOYER CAPTEUR LIVE</>
+                       <><Globe size={28} className="animate-pulse text-primary-300" /> DÉPLOYER CAPTEUR LIVE</>
                     )}
                  </button>
 
