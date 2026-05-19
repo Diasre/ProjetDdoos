@@ -176,6 +176,7 @@ function App() {
   const [savedReports, setSavedReports] = useState([])
   
   // Nouveaux ??tats pour le Chat IA
+  const chatEndRef = useRef(null)
   const [chatMessages, setChatMessages] = useState([])
   const [chatInput, setChatInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
@@ -372,7 +373,12 @@ function App() {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isLiveMode, blockedIPs]);
+  }, [isLiveMode, blockedIPs])
+
+  // Auto-scroll chat to bottom on new messages
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chatMessages]);
 
   // Fetch metrics on mount
   useEffect(() => {
@@ -846,29 +852,15 @@ function App() {
                             Sur quel type de s??curit?? voulez-vous travailler ?
                           </h2>
                         ) : (
-                          <div className="w-full max-w-3xl mb-8 space-y-6 h-[400px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                          <div className="w-full max-w-3xl mb-8 space-y-6 h-[550px] overflow-y-auto scroll-smooth pr-4 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
                             {chatMessages.map((msg, i) => (
                               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-[80%] rounded-2xl p-4 ${msg.role === 'user' ? 'bg-primary-500 text-white rounded-br-none' : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'}`}>
-                                  <div className="text-sm leading-relaxed" style={{color:'#cbd5e1'}} dangerouslySetInnerHTML={{__html: msg.content
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-  .replace(/\*(.+?)\*/g, '<em>$1</em>')
-  .replace(/^#{1,3}\s+(.+)$/gm, '<h4 style="font-weight:700;margin:8px 0 4px;font-size:0.95em">$1</h4>')
-  .replace(/^={3,}$/gm, '<hr style="border-color:rgba(255,255,255,0.1);margin:8px 0"/>')
-  .replace(/^-{3,}$/gm, '<hr style="border-color:rgba(255,255,255,0.1);margin:8px 0"/>')
-  .replace(/^[\-\*]\s+(.+)$/gm, '<li style="margin-left:16px;list-style:disc">$1</li>')
-  .replace(/
-
-/g, '<br/><br/>')
-  .replace(/
-/g, '<br/>')
-}} />
+                                  <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{color:'#cbd5e1'}}>{msg.content}</p>
                                 </div>
                               </div>
                             ))}
+                            <div ref={chatEndRef} />
                             {isTyping && (
                               <div className="flex justify-start">
                                 <div className="bg-white/10 rounded-2xl rounded-bl-none p-4 border border-white/5 flex gap-2 items-center">
