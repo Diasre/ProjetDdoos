@@ -377,7 +377,10 @@ function App() {
 
   // Auto-scroll chat to bottom on new messages
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    const chatEl = document.getElementById('chat-scroll-area');
+    if (chatEl) {
+      chatEl.scrollTop = chatEl.scrollHeight;
+    }
   }, [chatMessages]);
 
   // Fetch metrics on mount
