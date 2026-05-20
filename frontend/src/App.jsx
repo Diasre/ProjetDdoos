@@ -852,9 +852,9 @@ function App() {
                             Sur quel type de s??curit?? voulez-vous travailler ?
                           </h2>
                         ) : (
-                          <div onWheel={(e) => { e.stopPropagation(); }} style={{width:'100%',maxWidth:'48rem',marginBottom:'1rem',height:'calc(100vh - 300px)',overflowY:'scroll',overflowX:'hidden',overscrollBehavior:'contain',WebkitOverflowScrolling:'touch',display:'flex',flexDirection:'column',gap:'1.5rem',paddingRight:'1rem',scrollbarWidth:'thin',scrollbarColor:'#475569 transparent'}}>
+                          <div id="chat-scroll-area" style={{width:'100%',maxWidth:'48rem',marginBottom:'1rem',height:'calc(100vh - 300px)',overflowY:'scroll',overflowX:'hidden',overscrollBehavior:'contain',WebkitOverflowScrolling:'touch',display:'block',paddingRight:'1rem',scrollbarWidth:'thin',scrollbarColor:'#475569 transparent'}}>
                             {chatMessages.map((msg, i) => (
-                              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                              <div key={i} style={{marginBottom:'1.5rem'}} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-[80%] rounded-2xl p-4 ${msg.role === 'user' ? 'bg-primary-500 text-white rounded-br-none' : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'}`}>
                                   <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{color:'#cbd5e1'}}>{msg.content}</p>
                                 </div>
