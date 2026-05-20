@@ -570,7 +570,7 @@ function App() {
       </div>
 
       {/* Main Content Area */}
-      <main className={`pt-16 pb-20 px-8 md:px-16 relative z-10 h-screen overflow-y-auto overflow-x-hidden transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
+      <main className={`pt-16 pb-20 px-8 md:px-16 relative z-10 h-screen ${activeTab === 'chat' && chatMessages.length > 0 ? 'overflow-hidden' : 'overflow-y-auto'} overflow-x-hidden transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
         {!sidebarOpen && (
            <button 
              onClick={() => setSidebarOpen(true)}
