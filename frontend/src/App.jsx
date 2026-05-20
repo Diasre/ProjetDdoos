@@ -570,7 +570,7 @@ function App() {
       </div>
 
       {/* Main Content Area */}
-      <main className={`pt-16 pb-20 px-8 md:px-16 relative z-10 min-h-screen overflow-x-hidden transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
+      <main className={`pt-16 pb-20 px-8 md:px-16 relative z-10 h-screen overflow-y-auto overflow-x-hidden transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
         {!sidebarOpen && (
            <button 
              onClick={() => setSidebarOpen(true)}
@@ -852,7 +852,7 @@ function App() {
                             Sur quel type de s??curit?? voulez-vous travailler ?
                           </h2>
                         ) : (
-                          <div onWheel={(e) => e.stopPropagation()} style={{width:'100%',maxWidth:'48rem',marginBottom:'2rem',height:'60vh',overflowY:'scroll',overflowX:'hidden',overscrollBehavior:'contain',display:'flex',flexDirection:'column',gap:'1.5rem',paddingRight:'1rem',scrollbarWidth:'thin',scrollbarColor:'#475569 transparent'}}>
+                          <div onWheel={(e) => { e.stopPropagation(); }} style={{width:'100%',maxWidth:'48rem',marginBottom:'1rem',height:'calc(100vh - 300px)',overflowY:'scroll',overflowX:'hidden',overscrollBehavior:'contain',WebkitOverflowScrolling:'touch',display:'flex',flexDirection:'column',gap:'1.5rem',paddingRight:'1rem',scrollbarWidth:'thin',scrollbarColor:'#475569 transparent'}}>
                             {chatMessages.map((msg, i) => (
                               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-[80%] rounded-2xl p-4 ${msg.role === 'user' ? 'bg-primary-500 text-white rounded-br-none' : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'}`}>
