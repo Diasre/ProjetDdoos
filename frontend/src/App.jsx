@@ -852,7 +852,7 @@ function App() {
                             Sur quel type de s??curit?? voulez-vous travailler ?
                           </h2>
                         ) : (
-                          <div style={{width:'100%',maxWidth:'48rem',marginBottom:'2rem',height:'60vh',overflowY:'auto',overflowX:'hidden',overscrollBehavior:'contain',display:'flex',flexDirection:'column',gap:'1.5rem',paddingRight:'1rem'}}>
+                          <div onWheel={(e) => e.stopPropagation()} style={{width:'100%',maxWidth:'48rem',marginBottom:'2rem',height:'60vh',overflowY:'scroll',overflowX:'hidden',overscrollBehavior:'contain',display:'flex',flexDirection:'column',gap:'1.5rem',paddingRight:'1rem',scrollbarWidth:'thin',scrollbarColor:'#475569 transparent'}}>
                             {chatMessages.map((msg, i) => (
                               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-[80%] rounded-2xl p-4 ${msg.role === 'user' ? 'bg-primary-500 text-white rounded-br-none' : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'}`}>
